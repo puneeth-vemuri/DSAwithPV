@@ -13,7 +13,7 @@ router = APIRouter(
     tags=["problems"],
 )
 
-@router.post("/", response_model=ProblemResponse)
+@router.post("", response_model=ProblemResponse)
 async def create_problem(problem: ProblemCreate, db: AsyncSession = Depends(get_db)):
     # Check if slug exists
     result = await db.execute(select(Problem).where(Problem.slug == problem.slug))
@@ -54,7 +54,7 @@ async def create_problem(problem: ProblemCreate, db: AsyncSession = Depends(get_
     final_problem = result.scalars().first()
     return final_problem
 
-@router.get("/", response_model=List[ProblemResponse])
+@router.get("", response_model=List[ProblemResponse])
 async def get_problems(skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(Problem).options(selectinload(Problem.test_cases)).offset(skip).limit(limit)
