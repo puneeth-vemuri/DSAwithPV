@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -258,7 +258,16 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <UserButton afterSignOutUrl="/" />
+                <SignedIn>
+                    <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                    <SignInButton mode="modal">
+                        <button className="px-4 py-2 rounded-lg bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors">
+                            Sign In
+                        </button>
+                    </SignInButton>
+                </SignedOut>
             </div>
         </nav>
     );
