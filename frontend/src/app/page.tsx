@@ -1,65 +1,134 @@
-import Image from "next/image";
+
+"use client";
+
+import Link from "next/link";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function Home() {
+  const container = useRef(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline();
+
+    tl.from(".hero-badge", {
+      y: -20,
+      autoAlpha: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      clearProps: "all"
+    })
+      .from(".hero-title", {
+        y: 30,
+        autoAlpha: 0,
+        duration: 1,
+        ease: "power4.out",
+        stagger: 0.2,
+        clearProps: "all"
+      }, "-=0.4")
+      .from(".hero-desc", {
+        y: 20,
+        autoAlpha: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        clearProps: "all"
+      }, "-=0.6")
+      .from(".hero-btn", {
+        y: 20,
+        autoAlpha: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        clearProps: "all"
+      }, "-=0.4")
+      .from(".feature-card", {
+        y: 40,
+        autoAlpha: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        clearProps: "all"
+      }, "-=0.4");
+
+  }, { scope: container });
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div ref={container} className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center bg-[#0e0e0e] text-white overflow-hidden relative">
+      {/* Background Gradients */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full"></div>
+      </div>
+
+      <main className="z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto space-y-8">
+        {/* Badge */}
+        <div className="hero-badge inline-flex items-center px-3 py-1 rounded-full border border-gray-700 bg-gray-800/50 backdrop-blur-sm text-xs font-medium text-gray-300">
+          <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+          Community Driven DSA Platform
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Hero Text */}
+        <h1 className="hero-title text-5xl md:text-7xl font-bold tracking-tight">
+          Master <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">DSA</span> <br className="hidden md:block" />
+          One Problem at a Time.
+        </h1>
+
+        <p className="hero-desc max-w-2xl text-lg md:text-xl text-gray-400 leading-relaxed">
+          A dedicated space to solve Data Structures and Algorithms problems, share your unique solutions, and learn from the community. Join us in building a repository of knowledge.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
+          <Link
+            href="/problems"
+            className="hero-btn px-8 py-4 rounded-full bg-white text-black font-bold text-lg hover:bg-gray-200 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Start Solving
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+          <Link
+            href="/problems"
+            className="hero-btn px-8 py-4 rounded-full border border-gray-700 bg-[#1a1a1a] text-white font-bold text-lg hover:bg-[#252525] transition-all hover:border-gray-500"
           >
-            Documentation
-          </a>
+            View Solutions
+          </Link>
+        </div>
+
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full text-left">
+          <div className="feature-card p-6 rounded-2xl bg-[#1a1a1a] border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">Practice Code</h3>
+            <p className="text-gray-400 text-sm">Solve problems in an integrated IDE supporting Python, Java, and C++.</p>
+          </div>
+          <div className="feature-card p-6 rounded-2xl bg-[#1a1a1a] border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="h-10 w-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">Community Solutions</h3>
+            <p className="text-gray-400 text-sm">See how others approached the problem and share your own optimized solutions.</p>
+          </div>
+          <div className="feature-card p-6 rounded-2xl bg-[#1a1a1a] border border-gray-800 hover:border-gray-700 transition-colors">
+            <div className="h-10 w-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">Track Progress</h3>
+            <p className="text-gray-400 text-sm">Keep track of solved problems, your submission history, and performance.</p>
+          </div>
         </div>
       </main>
     </div>
   );
 }
+
