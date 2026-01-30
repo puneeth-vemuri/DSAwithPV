@@ -53,24 +53,12 @@ export default function AdminDashboard() {
                 <h1 className="text-3xl font-bold text-red-500 mb-4">Access Denied</h1>
                 <p className="text-gray-400 mb-6">You do not have permission to view this page.</p>
 
-                <div className="bg-gray-800 p-4 rounded text-left text-xs font-mono text-gray-400 border border-gray-700">
-                    <p className="mb-2 font-bold text-white">Debug Info:</p>
-                    <p>Clerk Loaded: {String(isLoaded)}</p>
-                    <p>User Object: {user ? "Present" : "NULL"}</p>
-                    <p>Signed In: {String(!!user)}</p>
-                    <p>Email: {userEmail || "None"}</p>
-                    <p>Expected: {authorizedEmail}</p>
-                </div>
-
-                <div className="mt-6">
-                    <p className="text-sm text-gray-500 mb-2">If you are signed in but see "NULL", try:</p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm transition"
-                    >
-                        Force Refresh Page
-                    </button>
-                </div>
+                <button
+                    onClick={() => window.location.href = "/"}
+                    className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm transition"
+                >
+                    Go Home
+                </button>
             </div>
         );
     }

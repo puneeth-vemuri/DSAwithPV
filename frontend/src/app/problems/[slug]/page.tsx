@@ -188,6 +188,11 @@ class Solution:
     // ...
 
     const handleSubmit = async () => {
+        if (!user) {
+            setOutput("Please sign in to submit a solution.");
+            return;
+        }
+
         setOutput("Submitting...");
 
         const payload = {
@@ -195,9 +200,9 @@ class Solution:
             code: code,
             language: language,
             // Send User Info for linking
-            clerk_id: user?.id,
-            email: user?.primaryEmailAddress?.emailAddress,
-            username: user?.username || user?.fullName || "User"
+            clerk_id: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+            username: user.username || user.fullName || "User"
         };
 
         try {
@@ -217,6 +222,11 @@ class Solution:
             const data = await res.json();
             if (data.status === "Accepted") {
                 setOutput("✅ Accepted! All test cases passed.");
+                // Refresh submissions list if on that tab
+                if (activeTab === "submissions") {
+                    // Trigger refetch (hacky but valid: switch tab back and forth or just wait for user)
+                    // Better: invalidate validation logic. For now, user can click tab again.
+                }
             } else {
                 setOutput(`❌ ${data.status}\n${data.output || ""}`);
             }
