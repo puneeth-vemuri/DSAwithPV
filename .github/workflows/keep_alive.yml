@@ -1,0 +1,15 @@
+name: Keep Alive
+
+on:
+  schedule:
+    - cron: '*/14 * * * *' # Run every 14 minutes (render sleeps at 15m)
+  workflow_dispatch: # Allows manual run
+
+jobs:
+  ping_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend
+        run: |
+          curl -I https://dsawithpv.onrender.com/
+          echo "Ping successful!"
