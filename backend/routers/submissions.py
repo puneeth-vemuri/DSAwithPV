@@ -30,7 +30,7 @@ async def submit_solution(submission: SubmissionCreate, db: AsyncSession = Depen
             raise HTTPException(status_code=404, detail="Problem not found")
 
         # 2. Prepare Driver Code
-        from drivers import get_python_driver, get_java_driver
+        from backend.drivers import get_python_driver, get_java_driver
         
         language = submission.language.lower()
         full_code = ""
