@@ -164,7 +164,7 @@ async def get_solutions(problem_id: int, db: AsyncSession = Depends(get_db)):
     # 1. Fetch Official Solution (Admin, Accepted)
     # We need to import UserRole properly. It's an Enum.
     # Avoiding circular imports or complex enum handling if possible, but let's try direct import.
-    from models.user import UserRole
+    from backend.models.user import UserRole
 
     # Query for Admin logic
     # Note: We join User to check role and also to populate username for the response
