@@ -27,9 +27,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from fastapi import Depends
-from database import get_db
-from models.problem import Problem
-from models.submission import Submission
+from backend.database import get_db
+from backend.models.problem import Problem
+from backend.models.submission import Submission
 
 @router.post("/run_test", response_model=ExecutionResponse)
 async def run_test_case(request: ExecutionRequest, problem_id: int, db: AsyncSession = Depends(get_db)):
