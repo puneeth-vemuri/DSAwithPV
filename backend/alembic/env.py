@@ -36,6 +36,9 @@ load_dotenv()
 # Override sqlalchemy.url with env var
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+
     config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 
