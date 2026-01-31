@@ -26,6 +26,7 @@ class ProblemBase(BaseModel):
     output_format: Optional[str] = None
     constraints: Optional[str] = None
     editorial: Optional[str] = None
+    concepts: Optional[str] = None
 
 class ProblemCreate(ProblemBase):
     test_cases: List[TestCaseCreate] = []

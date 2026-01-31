@@ -31,6 +31,7 @@ async def create_problem(problem: ProblemCreate, db: AsyncSession = Depends(get_
         output_format=problem.output_format,
         constraints=problem.constraints,
         editorial=problem.editorial,
+        concepts=problem.concepts,
     )
     db.add(db_problem)
     await db.commit()
@@ -90,6 +91,7 @@ async def update_problem(problem_id: int, problem_data: ProblemCreate, db: Async
     db_problem.output_format = problem_data.output_format
     db_problem.constraints = problem_data.constraints
     db_problem.editorial = problem_data.editorial
+    db_problem.concepts = problem_data.concepts
     
     # 3. Update Test Cases (Strategy: Delete All & Re-create)
     # This is simpler than diffing.

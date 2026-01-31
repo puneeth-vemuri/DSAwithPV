@@ -17,7 +17,14 @@ export default function AdminDashboard() {
         output_format: "",
         constraints: "",
         editorial: "",
+        concepts: "",
     });
+
+    const conceptsList = [
+        "Array", "String", "Two Pointers", "Hash Table", "Math",
+        "Binary Search", "Dynamic Programming", "Stack", "Queue",
+        "Linked List", "Tree", "Graph"
+    ];
 
     const [testCases, setTestCases] = useState([
         { input_data: "", expected_output: "", is_hidden: true },
@@ -74,6 +81,7 @@ export default function AdminDashboard() {
             output_format: problem.output_format || "",
             constraints: problem.constraints || "",
             editorial: problem.editorial || "",
+            concepts: problem.concepts || "",
         });
         // Transform test cases if needed (ensure fields align)
         setTestCases(problem.test_cases.map((tc: any) => ({
@@ -96,6 +104,7 @@ export default function AdminDashboard() {
             output_format: "",
             constraints: "",
             editorial: "",
+            concepts: "",
         });
         setTestCases([{ input_data: "", expected_output: "", is_hidden: true }]);
         setMessage("");
@@ -104,6 +113,15 @@ export default function AdminDashboard() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleConceptChange = (concept: string) => {
+        const currentConcepts = formData.concepts ? formData.concepts.split(",").map(c => c.trim()) : [];
+        if (currentConcepts.includes(concept)) {
+            setFormData(prev => ({ ...prev, concepts: currentConcepts.filter(c => c !== concept).join(", ") }));
+        } else {
+            setFormData(prev => ({ ...prev, concepts: [...currentConcepts, concept].join(", ") }));
+        }
     };
 
     const handleTestCaseChange = (index: number, field: string, value: string | boolean) => {
@@ -288,6 +306,25 @@ export default function AdminDashboard() {
                         onChange={(e) => setFormData({ ...formData, editorial: e.target.value })}
                         placeholder="# Solution Approach&#10;&#10;Use a hash map to store complements..."
                     />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-2">Concepts</label>
+                    <div className="flex flex-wrap gap-2 bg-gray-900 p-4 rounded border border-gray-700">
+                        {conceptsList.map((concept) => (
+                            <button
+                                type="button"
+                                key={concept}
+                                onClick={() => handleConceptChange(concept)}
+                                className={`px-3 py-1 rounded-full text-sm border transition-colors ${formData.concepts && formData.concepts.split(",").map(c => c.trim()).includes(concept)
+                                        ? "bg-blue-600 border-blue-500 text-white"
+                                        : "bg-transparent border-gray-600 text-gray-400 hover:border-gray-500"
+                                    }`}
+                            >
+                                {concept}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="border border-gray-700 p-4 rounded">

@@ -15,6 +15,7 @@ class Problem(Base):
     output_format = Column(Text, nullable=True)
     constraints = Column(Text, nullable=True)
     editorial = Column(Text, nullable=True) # Markdown content for solution
+    concepts = Column(String, nullable=True) # Comma-separated list of concepts
     date_posted = Column(Date, default=date.today)
     
     test_cases = relationship("TestCase", back_populates="problem", cascade="all, delete-orphan")
