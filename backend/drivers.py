@@ -122,7 +122,7 @@ public class Main {{
             try {{
                 return Integer.parseInt(s);
             }} catch (NumberFormatException e) {{
-                if (s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"")) {{
+                if (s.length() >= 2 && s.startsWith(\"\\\"\") && s.endsWith(\"\\\"\")) {{
                     s = s.substring(1, s.length() - 1);
                 }}
                 return s;
