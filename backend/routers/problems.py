@@ -4,9 +4,9 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from typing import List
 
-from backend.database import get_db
-from backend.models.problem import Problem, TestCase
-from backend.schemas import ProblemCreate, ProblemResponse
+from database import get_db
+from models.problem import Problem, TestCase
+from schemas import ProblemCreate, ProblemResponse
 
 router = APIRouter(
     prefix="/problems",

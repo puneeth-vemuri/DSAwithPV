@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 import httpx
-from backend.schemas import ExecutionRequest, ExecutionResponse
+from schemas import ExecutionRequest, ExecutionResponse
 
 router = APIRouter(
     prefix="/execute",
@@ -27,9 +27,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from fastapi import Depends
-from backend.database import get_db
-from backend.models.problem import Problem
-from backend.models.submission import Submission
+from database import get_db
+from models.problem import Problem
+from models.submission import Submission
 
 @router.post("/run_test", response_model=ExecutionResponse)
 async def run_test_case(request: ExecutionRequest, problem_id: int, db: AsyncSession = Depends(get_db)):
@@ -47,7 +47,7 @@ async def run_test_case(request: ExecutionRequest, problem_id: int, db: AsyncSes
     test_case = problem.test_cases[0]
     
     # 2. Prepare Driver
-    from backend.drivers import get_python_driver, get_java_driver
+    from drivers import get_python_driver, get_java_driver
     
     language_name = get_piston_language_name(request.language_id)
     full_code = ""

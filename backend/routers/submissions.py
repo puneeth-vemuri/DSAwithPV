@@ -6,12 +6,12 @@ from typing import List, Optional
 import httpx
 import ast
 
-from backend.database import get_db
-from backend.models.submission import Submission
-from backend.models.problem import Problem
-from backend.models.user import User
-from backend.schemas import SubmissionCreate, SubmissionResponse
-from backend.routers.execution import PISTON_API_URL, get_piston_language_name
+from database import get_db
+from models.submission import Submission
+from models.problem import Problem
+from models.user import User
+from schemas import SubmissionCreate, SubmissionResponse
+from routers.execution import PISTON_API_URL, get_piston_language_name
 
 router = APIRouter(
     prefix="/submissions",
@@ -30,7 +30,7 @@ async def submit_solution(submission: SubmissionCreate, db: AsyncSession = Depen
             raise HTTPException(status_code=404, detail="Problem not found")
 
         # 2. Prepare Driver Code
-        from backend.drivers import get_python_driver, get_java_driver
+        from drivers import get_python_driver, get_java_driver
         
         language = submission.language.lower()
         full_code = ""
@@ -164,7 +164,7 @@ async def get_solutions(problem_id: int, db: AsyncSession = Depends(get_db)):
     # 1. Fetch Official Solution (Admin, Accepted)
     # We need to import UserRole properly. It's an Enum.
     # Avoiding circular imports or complex enum handling if possible, but let's try direct import.
-    from backend.models.user import UserRole
+    from models.user import UserRole
 
     # Query for Admin logic
     # Note: We join User to check role and also to populate username for the response

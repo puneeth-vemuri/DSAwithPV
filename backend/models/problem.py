@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Date
 from sqlalchemy.orm import relationship
-from backend.database import Base
+from database import Base
 from datetime import date
 
 class Problem(Base):
