@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 import httpx
-from schemas import ExecutionRequest, ExecutionResponse
+from backend.schemas import ExecutionRequest, ExecutionResponse
 
 router = APIRouter(
     prefix="/execute",

@@ -6,12 +6,12 @@ from typing import List, Optional
 import httpx
 import ast
 
-from database import get_db
-from models.submission import Submission
-from models.problem import Problem
-from models.user import User
-from schemas import SubmissionCreate, SubmissionResponse
-from routers.execution import PISTON_API_URL, get_piston_language_name
+from backend.database import get_db
+from backend.models.submission import Submission
+from backend.models.problem import Problem
+from backend.models.user import User
+from backend.schemas import SubmissionCreate, SubmissionResponse
+from backend.routers.execution import PISTON_API_URL, get_piston_language_name
 
 router = APIRouter(
     prefix="/submissions",
